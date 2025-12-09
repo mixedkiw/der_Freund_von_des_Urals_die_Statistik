@@ -7,6 +7,7 @@ import './style.css'
 import QuestionsPage from './pages/QuestionsPage.vue'
 import SuccessPage from './pages/SuccessPage.vue'
 import NextPage from './pages/NextPage.vue'
+import RecapPage from './pages/RecapPage.vue'
 
 // Создаём маршруты
 const routes = [
@@ -23,7 +24,7 @@ const routes = [
   {
     path: '/next-page',
     name: 'next-page',
-    component: NextPage
+    component: RecapPage
   }
 ]
 
