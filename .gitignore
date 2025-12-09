@@ -1,0 +1,79 @@
+# Корневой .gitignore для всего проекта
+
+# ========== NODE MODULES ==========
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# ========== ПЕРЕМЕННЫЕ ОКРУЖЕНИЯ ==========
+.env
+.env.local
+.env.*.local
+
+# ========== ЛОГИ ==========
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+logs/
+*.log*
+
+# ========== IDE И РЕДАКТОРЫ ==========
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.sw?
+.DS_Store
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+*.sublime-project
+
+# ========== СБОРКА И АРТЕФАКТЫ ==========
+dist/
+dist-ssr/
+build/
+*.local
+.cache/
+
+# ========== ВРЕМЕННЫЕ ФАЙЛЫ ==========
+*.tmp
+*.temp
+.history/
+.turbo/
+
+# ========== ОПЕРАЦИОННАЯ СИСТЕМА ==========
+Thumbs.db
+ehthumbs.db
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# ========== БАЗЫ ДАННЫХ ==========
+*.sqlite
+*.sqlite3
+*.db
+*.db-journal
+
+# ========== ДАМПЫ ПАМЯТИ ==========
+core.*
+*.heapsnapshot
+
+# ========== СПЕЦИФИЧНОЕ ДЛЯ ПРОЕКТОВ ==========
+# Backend (Express.js)
+backend/.nodemon.json
+backend/.eslintcache
+
+# Frontend (Vue.js)
+frontend/.eslintcache
+frontend/coverage/
+
+# ========== OTHER ==========
+.turbo/

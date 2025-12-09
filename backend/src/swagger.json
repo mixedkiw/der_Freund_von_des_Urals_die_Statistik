@@ -1,0 +1,424 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Express.js API",
+    "description": "Простой учебный API на Express.js с примерами CRUD операций"
+  },
+  "host": "localhost:3000",
+  "basePath": "/api",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/status": {
+      "get": {
+        "summary": "Проверка статуса сервера",
+        "description": "Возвращает информацию о статусе сервера",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "OK"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Сервер работает корректно!"
+                },
+                "timestamp": {
+                  "type": "string",
+                  "example": "2024-12-06T10:30:00.000Z"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "summary": "Получить всех пользователей",
+        "description": "Возвращает список всех пользователей",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Список пользователей",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/User"
+                  }
+                },
+                "count": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Создать нового пользователя",
+        "description": "Создает нового пользователя с указанными данными",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "name",
+                "email",
+                "age"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Алексей"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "alex@example.com"
+                },
+                "age": {
+                  "type": "integer",
+                  "example": 35
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Пользователь успешно создан",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "data": {
+                  "$ref": "#/definitions/User"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Ошибка валидации"
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "summary": "Получить пользователя по ID",
+        "description": "Возвращает информацию о конкретном пользователе",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID пользователя"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Информация о пользователе",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "data": {
+                  "$ref": "#/definitions/User"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Пользователь не найден"
+          }
+        }
+      },
+      "put": {
+        "summary": "Обновить пользователя",
+        "description": "Обновляет информацию о пользователе",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "age": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Пользователь успешно обновлен"
+          },
+          "404": {
+            "description": "Пользователь не найден"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Удалить пользователя",
+        "description": "Удаляет пользователя по ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Пользователь успешно удален"
+          },
+          "404": {
+            "description": "Пользователь не найден"
+          }
+        }
+      }
+    },
+    "/products": {
+      "get": {
+        "summary": "Получить все продукты",
+        "description": "Возвращает список всех продуктов",
+        "responses": {
+          "200": {
+            "description": "Список продуктов",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Product"
+                  }
+                },
+                "count": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Создать новый продукт",
+        "description": "Создает новый продукт",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "name",
+                "price"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Мышка"
+                },
+                "price": {
+                  "type": "number",
+                  "example": 1500
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Беспроводная мышка"
+                },
+                "stock": {
+                  "type": "integer",
+                  "example": 30
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Продукт успешно создан"
+          },
+          "400": {
+            "description": "Ошибка валидации"
+          }
+        }
+      }
+    },
+    "/products/{id}": {
+      "get": {
+        "summary": "Получить продукт по ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Информация о продукте"
+          },
+          "404": {
+            "description": "Продукт не найден"
+          }
+        }
+      },
+      "put": {
+        "summary": "Обновить продукт",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "price": {
+                  "type": "number"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "stock": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Продукт успешно обновлен"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Удалить продукт",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Продукт успешно удален"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "name": {
+          "type": "string",
+          "example": "Иван"
+        },
+        "email": {
+          "type": "string",
+          "example": "ivan@example.com"
+        },
+        "age": {
+          "type": "integer",
+          "example": 25
+        }
+      }
+    },
+    "Product": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "name": {
+          "type": "string",
+          "example": "Ноутбук"
+        },
+        "price": {
+          "type": "number",
+          "example": 50000
+        },
+        "description": {
+          "type": "string",
+          "example": "Мощный ноутбук для работы"
+        },
+        "stock": {
+          "type": "integer",
+          "example": 10
+        }
+      }
+    }
+  }
+}

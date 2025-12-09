@@ -1,0 +1,57 @@
+# Зависимостиnode_modules
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Переменные окружения
+.env
+.env.local
+.env.*.local
+
+# Логи
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+logs/
+*.log*
+
+# IDE и редакторы
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.sw?
+.DS_Store
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# Временные файлы
+*.tmp
+*.temp
+.history/
+.turbo/
+
+# OS
+Thumbs.db
+.DS_Store
+ehthumbs.db
+
+# Инструменты разработки
+.nodemon.json
+.eslintcache
+
+# Базы данных (если используются)
+*.sqlite
+*.sqlite3
+*.db
+
+# Дампы памяти
+core.*
