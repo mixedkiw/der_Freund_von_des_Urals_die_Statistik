@@ -1,0 +1,16 @@
+node_modules
+npm-debug.log
+.env.local
+.env.*.local
+.git
+.gitignore
+README.md
+LEARNING_GUIDE.md
+START_HERE.md
+QUICKSTART.md
+ARCHITECTURE.md
+SETUP_SUMMARY.txt
+FILES_GUIDE.txt
+test-api.sh
+.DS_Store
+*.md

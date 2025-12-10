@@ -54,6 +54,7 @@
 
 <script>
 import CustomInput from '../components/CustomInput.vue';
+import { isActivationTimeReached, getUserTimezoneInfo } from '../utils/timezone.js';
 
 export default {
   name: 'SuccessPage',
@@ -68,39 +69,32 @@ export default {
       message: '',
       messageType: '', // 'success' или 'error'
       // ⚠️ ЗДЕСЬ МЕНЯЙ ДАТУ И ВРЕМЯ ДЛЯ ТЕСТИРОВАНИЯ
-      // Формат: 'YYYY-MM-DD HH:mm:ss'
-      // Временная зона: Asia/Yekaterinburg (UTC+5)
+      // Формат: 'YYYY-MM-DD HH:mm:ss' в часовом поясе Yekaterinburg (UTC+5)
       // ПРОДАКШН ДАТА: '2025-12-11 21:21:00'
-      // ТЕКУЩЕЕ ВРЕМЯ В EKATERINBURG: 2025-12-10 01:45:46
-      activationDateTime: '2025-12-10 8:00:00',
+      // ТЕКУЩЕЕ ВРЕМЯ В EKATERINBURG: 2025-12-10 08:00:00+
+      // 
+      // ℹ️ Логика работает корректно на GitHub Pages и везде:
+      // 1. Время активации интерпретируется как Yekaterinburg (UTC+5)
+      // 2. Конвертируется в UTC
+      // 3. На клиенте сравнивается с текущим UTC временем
+      // 4. Результат не зависит от часового пояса пользователя
+      activationDateTime: '2025-12-10 08:00:00',
       timezone: 'Asia/Yekaterinburg'
     };
   },
   mounted() {
     this.checkTime();
+    
+    // Информация для отладки
+    const tzInfo = getUserTimezoneInfo();
+    console.log(`👤 Часовой пояс пользователя:`);
+    console.log(`   Браузер: ${tzInfo.browser}`);
+    console.log(`   UTC смещение: ${tzInfo.display}`);
   },
   methods: {
     checkTime() {
       try {
-        // Парсим время активации
-        const [datePart, timePart] = this.activationDateTime.split(' ');
-        const [year, month, day] = datePart.split('-').map(Number);
-        const [hours, minutes, seconds] = timePart.split(':').map(Number);
-
-        // Создаём дату в указанной временной зоне
-        // Для Yekaterinburg (UTC+5) нужно учесть смещение
-        const activationTime = new Date(year, month - 1, day, hours, minutes, seconds);
-        
-        // Получаем текущее время с учётом Yekaterinburg
-        const now = new Date();
-        const offset = 5 * 60 * 60 * 1000; // UTC+5 в миллисекундах
-        const yekTime = new Date(now.getTime() + offset);
-
-        this.isTimeReached = yekTime >= activationTime;
-        
-        console.log(`🕐 Время активации: ${activationTime.toLocaleString()}`);
-        console.log(`🕐 Текущее время (Yekaterinburg): ${yekTime.toLocaleString()}`);
-        console.log(`✅ Активировано: ${this.isTimeReached}`);
+        this.isTimeReached = isActivationTimeReached(this.activationDateTime);
       } catch (error) {
         console.error('Ошибка при проверке времени:', error);
       }
