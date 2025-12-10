@@ -72,7 +72,7 @@ export default {
       // Временная зона: Asia/Yekaterinburg (UTC+5)
       // ПРОДАКШН ДАТА: '2025-12-11 21:21:00'
       // ТЕКУЩЕЕ ВРЕМЯ В EKATERINBURG: 2025-12-10 01:45:46
-      activationDateTime: '2025-12-10 01:40:00',
+      activationDateTime: '2025-12-10 8:00:00',
       timezone: 'Asia/Yekaterinburg'
     };
   },
