@@ -4,7 +4,7 @@ import path from 'path'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/der_Freund_von_des_Urals_die_Statistik/',
+  base: process.env.NODE_ENV === 'production' ? '/der_Freund_von_des_Urals_die_Statistik/' : '/',
   plugins: [vue()],
   resolve: {
     alias: {

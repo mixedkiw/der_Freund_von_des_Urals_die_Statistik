@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  backend:
+    build:
+      context: ./backend
+    image: derfreund/backend:latest
+    container_name: df_backend
+    restart: unless-stopped
+    volumes:
+      - ./backend/data:/app/data
+    environment:
+      - NODE_ENV=production
+    expose:
+      - "3000"
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        - VITE_API_URL=http://77.222.105.3/api
+    image: derfreund/frontend:latest
+    container_name: df_frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - backend

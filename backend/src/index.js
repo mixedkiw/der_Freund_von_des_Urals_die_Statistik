@@ -3,7 +3,7 @@ const { connectDB } = require('./database/connection');
 const { initDB } = require('./database/init');
 
 const PORT = process.env.PORT || 3000;
-const HOST = 'localhost';
+const HOST = process.env.HOST || '0.0.0.0';
 
 // Функция запуска сервера
 const startServer = async () => {
@@ -20,8 +20,8 @@ const startServer = async () => {
       throw new Error('Не удалось инициализировать БД');
     }
 
-    // Запускаем сервер
-    app.listen(PORT, () => {
+  // Запускаем сервер (слушаем на всех интерфейсах внутри контейнера)
+  app.listen(PORT, HOST, () => {
       console.log(`
 ╔════════════════════════════════════════╗
 ║  Express.js API Server успешно запущен ║
